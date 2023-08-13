@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .message-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  h1 {
+    color: #ff5a5f;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  p {
+    color: #333333;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  .heart {
+    color: #ff5a5f;
+    animation: heartbeat 1.5s infinite;
+  }
+  .red-text {
+    color: red;
+  }
+  @keyframes heartbeat {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+</style>
+<title>A Special Message</title>
+</head>
+<body>
+<div class="message-box" id="messageBox">
+  <h1>My message</h1>
+  <p id="initialMessage">Click the link below to reveal the special message.</p>
+  <a href="#" onclick="revealMessage()">Click here</a>
+  <div id="hiddenContent" style="display: none;">
+    <form onsubmit="return showMessage()">
+      <label for="quantity">Enter a Number:</label>
+      <input type="number" id="quantity" name="quantity" min="1" max="100" step="1">
+      <input type="submit" value="Submit">
+    </form>
+    <div id="messageContainer" style="display: none;">
+      <p id="responseMessage"></p>
+      <br>
+      <div id="acceptOrReject" style="display: none;">
+        <p>My Feelings when I meet you first time press 1 button </p>
+		<p>when I meet you second time press 2 button</p>
+        <button onclick="displayMessage(true)">1</button>
+        <button onclick="displayMessage(false)">2</button>
+      </div>
+      </br>
+    </div>
+  </div>
+</div>
+<script>
+function revealMessage() {
+  const initialMessage = document.getElementById('initialMessage');
+  const hiddenContent = document.getElementById('hiddenContent');
+  initialMessage.style.display = 'none';
+  hiddenContent.style.display = 'block';
+}
+
+function showMessage() {
+  const quantityInput = document.getElementById('quantity');
+  const messageContainer = document.getElementById('messageContainer');
+  const acceptOrReject = document.getElementById('acceptOrReject');
+  const messageElement = document.getElementById('responseMessage');
+  
+  if (quantityInput.value === '') {
+    messageElement.textContent = 'Please enter a number.';
+    messageContainer.style.display = 'none';
+    acceptOrReject.style.display = 'none'; // Hide accept/reject section
+  } else {
+    const num = parseInt(quantityInput.value);
+    if (!isNaN(num)) {
+      messageElement.innerHTML = `
+        <p>I wanted to let you know that you're my world </p>
+        <p>Every moment with you is <span class="heart">♥</span> touching movement to me.</p>
+        <p class="red-text">I Love You Archana</p>
+      `;
+      messageContainer.style.display = 'block';
+      acceptOrReject.style.display = 'block'; // Show accept/reject section
+    } else {
+      messageElement.textContent = 'I Love You Archana';
+      messageContainer.style.display = 'none';
+      acceptOrReject.style.display = 'none'; // Hide accept/reject section
+    }
+  }
+  
+  // Prevent form submission
+  return false;
+}
+
+function displayMessage(showMessage) {
+  const messageElement = document.getElementById('responseMessage');
+  const acceptOrReject = document.getElementById('acceptOrReject');
+  const olderMessage = messageElement.innerHTML;
+  
+  if (showMessage) {
+    messageElement.innerHTML = `<p>When I first saw you I was afraid to talk to you, when I first talked to you I was afraid to like you, when I first liked you I was afraid to love you, now that I love you I’m afraid to lose you.</p>
+    `;
+  } else {
+    messageElement.innerHTML = `
+      <p>Even the brightest diamond doesn't sparkle as bright as the light in your eyes.Your presence lights up my world in ways words cannot express.</p>
+    `;
+  }
+
+  acceptOrReject.style.display = 'none'; // Hide accept/reject section after choice
+}
+</script>
+</body>
+</html>
